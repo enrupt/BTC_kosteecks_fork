@@ -25,7 +25,7 @@ class HParams(object):
 
     @classmethod
     def  load_str(cls, str_):
-        return yaml.safe_load(str_)
+        return cls(**yaml.safe_load(str_))
 
     @classmethod
     def load(cls, path):

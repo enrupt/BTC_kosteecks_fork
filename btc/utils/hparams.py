@@ -24,8 +24,11 @@ class HParams(object):
         return '\nHyperparameters:\n' + '\n'.join([' {}={}'.format(k, v) for k, v in self.__dict__.items()])
 
     @classmethod
+    def  load_str(cls, str_):
+        return yaml.safe_load(str_)
+
+    @classmethod
     def load(cls, path):
-        print("path", path)
         with open(path, 'r') as f:
             return cls(**yaml.load(f, Loader=yaml.SafeLoader))
 

@@ -1,8 +1,8 @@
 import os
 from torch import optim
 from utils import logger
-from audio_dataset import AudioDataset, AudioDataLoader
-from utils.tf_logger import TF_Logger
+from .audio_dataset import AudioDataset, AudioDataLoader
+from .utils.tf_logger import TF_Logger
 from .btc_model import *
 from .baseline_models import CNN, CRNN
 from .utils.hparams import HParams

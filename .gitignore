@@ -1,3 +1,6 @@
 /btc/pyproject.toml
 /btc/poetry.lock
 
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/workspace.xml

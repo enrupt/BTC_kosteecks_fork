@@ -3,12 +3,12 @@ from torch import optim
 from utils import logger
 from audio_dataset import AudioDataset, AudioDataLoader
 from utils.tf_logger import TF_Logger
-from btc_model import *
-from baseline_models import CNN, CRNN
-from utils.hparams import HParams
+from .btc_model import *
+from .baseline_models import CNN, CRNN
+from .utils.hparams import HParams
 import argparse
-from utils.pytorch_utils import adjusting_learning_rate
-from utils.mir_eval_modules import root_majmin_score_calculation, large_voca_score_calculation
+from .utils.pytorch_utils import adjusting_learning_rate
+from .utils.mir_eval_modules import root_majmin_score_calculation, large_voca_score_calculation
 import warnings
 
 warnings.filterwarnings("ignore", category=UserWarning)

@@ -1,7 +1,7 @@
 import os
-from utils import logger
-from btc_model import *
-from utils.mir_eval_modules import audio_file_to_features, idx2chord, idx2voca_chord
+from .utils import logger
+from .btc_model import *
+from .utils.mir_eval_modules import audio_file_to_features, idx2chord, idx2voca_chord
 
 logger.logging_verbosity(1)
 use_cuda = torch.cuda.is_available()

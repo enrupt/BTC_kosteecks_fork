@@ -1,6 +1,6 @@
 import os
 import librosa
-from utils.chords import Chords
+from btc.utils.chords import Chords
 import re
 from enum import Enum
 import pyrubberband as pyrb

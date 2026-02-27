@@ -5,7 +5,7 @@ from torch.autograd import Variable
 import numpy as np
 import os
 import math
-from utils import logger
+from btc.utils import logger
 
 use_cuda = torch.cuda.is_available()
 

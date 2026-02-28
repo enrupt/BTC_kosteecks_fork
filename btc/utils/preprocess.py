@@ -236,7 +236,7 @@ class Preprocess():
                                     available_chords['min_end'] = min_ends
                                     chords_lengths = available_chords['min_end'] - available_chords['max_start']
                                     available_chords['chord_length'] = chords_lengths
-                                    chord = available_chords.ix[available_chords['chord_length'].idxmax()]['chord_id']
+                                    chord = available_chords.iloc[available_chords['chord_length'].idxmax()]['chord_id']
                                 else:
                                     chord = 24
                             except Exception as e:
@@ -400,7 +400,8 @@ class Preprocess():
                                     available_chords['min_end'] = min_ends
                                     chords_lengths = available_chords['min_end'] - available_chords['max_start']
                                     available_chords['chord_length'] = chords_lengths
-                                    chord = available_chords.ix[available_chords['chord_length'].idxmax()]['chord_id']
+                                    available_chords.reset_index(drop=True, inplace=True)
+                                    chord = available_chords.iloc[available_chords['chord_length'].idxmax()]['chord_id']
                                 else:
                                     chord = 169
                             except Exception as e:

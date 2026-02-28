@@ -6,7 +6,13 @@ authors = ["enrupt@gmail.com"]
 repository = "https://github.com/enrupt/BTC_kosteecks_fork"
 
 [tool.poetry.dependencies]
-python = "3.9"
+python = "3.9.13"
+torch = "==2.0.0"
+numpy = "==1.26.4"
+yaml-1-3 = "==0.1.0"
+pyyaml = "^6.0.3"
+librosa = "==0.11.0rc1"
+mir-eval = "^0.8.2"
 
 [build-system]
 requires = ["poetry-core"]

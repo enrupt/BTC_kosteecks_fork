@@ -1,7 +1,8 @@
 import os
-from .utils import logger
-from .btc_model import *
-from .utils.mir_eval_modules import audio_file_to_features, idx2chord, idx2voca_chord
+from btc.utils import logger
+from btc.btc_model import *
+from btc.utils.mir_eval_modules import audio_file_to_features, idx2chord, idx2voca_chord
+import torch
 
 logger.logging_verbosity(1)
 use_cuda = torch.cuda.is_available()
@@ -9,7 +10,7 @@ device = torch.device("cuda" if use_cuda else "cpu")
 
 config = HParams.load("run_config.yaml")
 
-voca = False # True means large vocabulary label type
+voca = True # True means large vocabulary label type
 if voca == True:
     config.feature['large_voca'] = True
     config.model['num_chords'] = 170

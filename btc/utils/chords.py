@@ -33,18 +33,19 @@ import numpy as np
 import pandas as pd
 import mir_eval
 
+from btc.utils.chord_fix import find_closest
 
-CHORD_DTYPE = [('root', np.int),
-               ('bass', np.int),
-               ('intervals', np.int, (12,)),
-               ('is_major',np.bool)]
+CHORD_DTYPE = [('root', int),
+               ('bass', int),
+               ('intervals', int, (12,)),
+               ('is_major',bool)]
 
-CHORD_ANN_DTYPE = [('start', np.float),
-                   ('end', np.float),
+CHORD_ANN_DTYPE = [('start', float),
+                   ('end', float),
                    ('chord', CHORD_DTYPE)]
 
-NO_CHORD = (-1, -1, np.zeros(12, dtype=np.int), False)
-UNKNOWN_CHORD = (-1, -1, np.ones(12, dtype=np.int) * -1, False)
+NO_CHORD = (-1, -1, np.zeros(12, dtype=int), False)
+UNKNOWN_CHORD = (-1, -1, np.ones(12, dtype=int) * -1, False)
 
 PITCH_CLASS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
@@ -122,14 +123,7 @@ class Chords:
         return crds
 
     def label_error_modify(self, label):
-        if label == 'Emin/4': label = 'E:min/4'
-        elif label == 'A7/3': label = 'A:7/3'
-        elif label == 'Bb7/3': label = 'Bb:7/3'
-        elif label == 'Bb7/5': label = 'Bb:7/5'
-        elif label.find(':') == -1:
-            if label.find('min') != -1:
-                label = label[:label.find('min')] + ':' + label[label.find('min'):]
-        return label
+        raise NotImplementedError('invalid code')
 
     def chord(self, label):
         """
@@ -156,7 +150,8 @@ class Chords:
             if label == 'X':
                 return UNKNOWN_CHORD
 
-            label = self.label_error_modify(label)
+            #label = self.label_error_modify(label)
+            label = find_closest(label)
 
             c_idx = label.find(':')
             s_idx = label.find('/')
@@ -287,7 +282,7 @@ class Chords:
 
         """
         if given_pitch_classes is None:
-            given_pitch_classes = np.zeros(12, dtype=np.int)
+            given_pitch_classes = np.zeros(12, dtype=int)
         for int_def in intervals_str[1:-1].split(','):
             int_def = int_def.strip()
             if int_def[0] == '*':
@@ -320,7 +315,7 @@ class Chords:
         if list_idx != 0:
             ivs = self._shorthands[quality_str[:list_idx]].copy()
         else:
-            ivs = np.zeros(12, dtype=np.int)
+            ivs = np.zeros(12, dtype=int)
 
 
         return self.interval_list(quality_str[list_idx:], ivs)
@@ -506,7 +501,8 @@ class Chords:
         df = pd.DataFrame(data=triads[['root', 'is_major']])
 
         (ref_intervals, ref_labels) = mir_eval.io.load_labeled_intervals(filename)
-        ref_labels = self.lab_file_error_modify(ref_labels)
+        #ref_labels = self.lab_file_error_modify(ref_labels)
+        ref_labels = list(map(lambda x: find_closest(x), ref_labels))
         idxs = list()
         for i in ref_labels:
             chord_root, quality, scale_degrees, bass = mir_eval.chord.split(i, reduce_extended_chords=True)
@@ -520,23 +516,5 @@ class Chords:
         return df
 
     def lab_file_error_modify(self, ref_labels):
-        for i in range(len(ref_labels)):
-            if ref_labels[i][-2:] == ':4':
-                ref_labels[i] = ref_labels[i].replace(':4', ':sus4')
-            elif ref_labels[i][-2:] == ':6':
-                ref_labels[i] = ref_labels[i].replace(':6', ':maj6')
-            elif ref_labels[i][-4:] == ':6/2':
-                ref_labels[i] = ref_labels[i].replace(':6/2', ':maj6/2')
-            elif ref_labels[i] == 'Emin/4':
-                ref_labels[i] = 'E:min/4'
-            elif ref_labels[i] == 'A7/3':
-                ref_labels[i] = 'A:7/3'
-            elif ref_labels[i] == 'Bb7/3':
-                ref_labels[i] = 'Bb:7/3'
-            elif ref_labels[i] == 'Bb7/5':
-                ref_labels[i] = 'Bb:7/5'
-            elif ref_labels[i].find(':') == -1:
-                if ref_labels[i].find('min') != -1:
-                    ref_labels[i] = ref_labels[i][:ref_labels[i].find('min')] + ':' + ref_labels[i][ref_labels[i].find('min'):]
-        return ref_labels
+        raise NotImplementedError('invalid code')
 

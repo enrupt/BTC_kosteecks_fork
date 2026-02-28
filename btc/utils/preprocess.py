@@ -44,7 +44,7 @@ class Preprocess():
                 tmp = filename.replace(".mp3", "")
                 tmp = tmp.replace(last_dir, "")
                 filename_lower = tmp.lower()
-                #filename_lower = " ".join(re.findall("[a-zA-Z]+", filename_lower))
+                filename_lower = " ".join(re.findall("[a-zA-Z]+", filename_lower))
                 if word.lower().replace(" ", "") in filename_lower.replace(" ", ""):
                     return filename
 
@@ -71,7 +71,8 @@ class Preprocess():
                             tmp = filename.replace(".lab", "")
                             #song_name = " ".join(re.findall("[a-zA-Z]+", tmp)).replace("CD", "")
                             song_name = filename
-                            mp3_path = self.find_mp3_path(dirpath, song_name)
+                            #mp3_path = self.find_mp3_path(dirpath, song_name)
+                            mp3_path = os.path.join(dirpath, tmp+".mp3")
                             res_list.append([song_name, os.path.join(dirpath, filename), os.path.join(dirpath, mp3_path),
                                              os.path.join(self.root_path, "result", "isophonic")])
 

@@ -69,7 +69,8 @@ class Preprocess():
                     for filename in filenames:
                         if ".lab" in filename:
                             tmp = filename.replace(".lab", "")
-                            song_name = " ".join(re.findall("[a-zA-Z]+", tmp)).replace("CD", "")
+                            #song_name = " ".join(re.findall("[a-zA-Z]+", tmp)).replace("CD", "")
+                            song_name = filename
                             mp3_path = self.find_mp3_path(dirpath, song_name)
                             res_list.append([song_name, os.path.join(dirpath, filename), os.path.join(dirpath, mp3_path),
                                              os.path.join(self.root_path, "result", "isophonic")])

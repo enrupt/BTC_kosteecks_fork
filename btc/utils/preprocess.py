@@ -44,7 +44,7 @@ class Preprocess():
                 tmp = filename.replace(".mp3", "")
                 tmp = tmp.replace(last_dir, "")
                 filename_lower = tmp.lower()
-                filename_lower = " ".join(re.findall("[a-zA-Z]+", filename_lower))
+                #filename_lower = " ".join(re.findall("[a-zA-Z]+", filename_lower))
                 if word.lower().replace(" ", "") in filename_lower.replace(" ", ""):
                     return filename
 
